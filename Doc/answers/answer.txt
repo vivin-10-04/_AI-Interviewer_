@@ -1,0 +1,1 @@
+topics are basically programs which are hosted in the main net of solana and load topic is basically a way to you know load the program and the data from the main net arduino the blockchain and retrieve the data from the topic basically

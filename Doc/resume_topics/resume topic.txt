@@ -1,0 +1,154 @@
+[
+  {
+    "topic": "Web3",
+    "importance": 0.95
+  },
+  {
+    "topic": "Solana",
+    "importance": 0.92
+  },
+  {
+    "topic": "Hono",
+    "importance": 0.9
+  },
+  {
+    "topic": "Cloudflare Workers",
+    "importance": 0.88
+  },
+  {
+    "topic": "Zod",
+    "importance": 0.85
+  },
+  {
+    "topic": "ShadCN UI",
+    "importance": 0.8
+  },
+  {
+    "topic": "Rust CLI",
+    "importance": 0.78
+  },
+  {
+    "topic": "GCP Cloud Run",
+    "importance": 0.75
+  },
+  {
+    "topic": "NextJS",
+    "importance": 0.6
+  },
+  {
+    "topic": "TypeScript",
+    "importance": 0.6
+  },
+  {
+    "topic": "MERN",
+    "importance": 0.6
+  },
+  {
+    "topic": "ReactJS",
+    "importance": 0.6
+  },
+  {
+    "topic": "NodeJS",
+    "importance": 0.6
+  },
+  {
+    "topic": "MongoDB",
+    "importance": 0.6
+  },
+  {
+    "topic": "PostgreSQL",
+    "importance": 0.6
+  },
+  {
+    "topic": "Prisma ORM",
+    "importance": 0.55
+  },
+  {
+    "topic": "JWT",
+    "importance": 0.55
+  },
+  {
+    "topic": "Docker",
+    "importance": 0.55
+  },
+  {
+    "topic": "Github",
+    "importance": 0.55
+  },
+  {
+    "topic": "CI/CD",
+    "importance": 0.55
+  },
+  {
+    "topic": "Portfolio website",
+    "importance": 0.5
+  },
+  {
+    "topic": "Blogging App",
+    "importance": 0.5
+  },
+  {
+    "topic": "Wallet App",
+    "importance": 0.5
+  },
+  {
+    "topic": "Todo App",
+    "importance": 0.5
+  },
+  {
+    "topic": "Redis Pubsub",
+    "importance": 0.5
+  },
+  {
+    "topic": "Server-side rendering",
+    "importance": 0.5
+  },
+  {
+    "topic": "SEO",
+    "importance": 0.5
+  },
+  {
+    "topic": "Feedback feature",
+    "importance": 0.4
+  },
+  {
+    "topic": "Full Stack Development",
+    "importance": 0.4
+  },
+  {
+    "topic": "Web Development",
+    "importance": 0.4
+  },
+  {
+    "topic": "Database",
+    "importance": 0.4
+  },
+  {
+    "topic": "Frontend",
+    "importance": 0.4
+  },
+  {
+    "topic": "Backend",
+    "importance": 0.4
+  },
+  {
+    "topic": "Cloud",
+    "importance": 0.4
+  },
+  {
+    "topic": "DevOps",
+    "importance": 0.4
+  },
+  {
+    "topic": "CLI",
+    "importance": 0.4
+  },
+  {
+    "topic": "Blockchain",
+    "importance": 0.4
+  },
+  {
+    "topic": "Crypto",
+    "importance": 0.4
+  }
+]
