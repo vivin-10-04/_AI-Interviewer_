@@ -4,52 +4,68 @@ import datetime
 import pywhatkit as kit
 import wikipedia as wiki
 import webbrowser as wb
-import cv2 
+import cv2
+import os
+from dotenv import load_dotenv
+from sarvamai import SarvamAI
+from audiotranscribe import transcribe_audio as tsa
 
-from .audiotranscribe import transcribe_audio as tsa
+load_dotenv()
+SARVAM_API_KEY = os.getenv("SARVAM_API_KEY")
+
 r = sr.Recognizer()
+
 def speech_to_text():
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold=1
+        r.pause_threshold = 1
         audio = r.listen(source)
 
     try:
-        print("Recognizing..")
-        query= r.recognize_google(audio, language = 'en-in')
-
+        print("Recognizing...")
+        query = r.recognize_google(audio, language='en-in')
     except Exception as e:
         print(e)
-        print("I couldnt get that")
+        print("I couldn't get that")
         return "None"
 
     return query
 
 def text_to_speech(text):
-    engine = pyttsx3.init()
-    engine.setProperty('rate',200)
-    voices= engine.getProperty('voices')
-    engine.setProperty('voice',voices[0].id)
-    engine.say(text)
-    engine.runAndWait()
-    print(text)
+    client = SarvamAI(api_subscription_key=SARVAM_API_KEY)
+
+    response = client.text_to_speech.convert(
+        text=text,
+        target_language_code="en-IN",
+        speaker="amit",
+        pace=1.1,
+        speech_sample_rate=22050,
+        enable_preprocessing=True,
+        model="bulbul:v3"
+    )
+
+    output_path = "response.wav"
+    with open(output_path, "wb") as f:
+        f.write(response.audio_data)
+
+    os.system("start response.wav")
 
 def greet():
-    date = datetime.datetime.now()
-    date1 = date.strftime("%d/%m/%Y")
-    time = date.strftime(' %H:%M:%S')
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    def current_date():
-        text_to_speech(f'{date.strftime("%d")} {months[int(date.strftime("%m"))]},{date.strftime("%Y")}')
-    def current_time():
-        text_to_speech( date.strftime(' %H:%M:%S'))
-    if(int(time[0:2])< 12):
+    now = datetime.datetime.now()
+    hour = now.hour
+
+    if hour < 12:
         greeting = "good morning"
-    elif(12>=int(time[0:2])>4):
+    elif 12 <= hour < 17:
         greeting = "good afternoon"
     else:
         greeting = "good evening"
-    
-    text_to_speech(f'{greeting} I am Vivin your Interviewer for today. Try to relax and answer my questions calmly and at your own pace. Before we deep dive into your interview i will explain you the flow. we will start with your resume then move forward to CS fundamentals and lastly solve a coding question. So lets start with a short and brief introduction about you')
 
-        
+    text_to_speech(
+        f"{greeting}, I am Vivin your Interviewer for today. "
+        "Try to relax and answer my questions calmly and at your own pace. "
+        "Before we deep dive into your interview I will explain you the flow. "
+        "We will start with your resume, then move forward to CS fundamentals, "
+        "and lastly solve a coding question. "
+        "So lets start with a short and brief introduction about yourself."
+    )
