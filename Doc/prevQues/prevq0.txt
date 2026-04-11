@@ -1,6 +1,0 @@
-{
-  "response": "It seems like you've provided a file path. I'll create a new question. Here it is: What are the applications of Natural Language Processing (NLP) in modern technology?",
-  "topic": "NLP",
-  "sub_topic": "Applications",
-  "evaluation": "Understanding of NLP applications"
-}
