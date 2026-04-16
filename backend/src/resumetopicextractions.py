@@ -8,6 +8,8 @@ from collections import Counter
 import re
 from dotenv import load_dotenv
 from textblob import TextBlob
+from script.get_data import resume_content
+from script.insert_response import insert_resume_topic
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -103,6 +105,7 @@ MongoDB
 deploying containers. Tech used- Docker, Google Cloud Run and Github. 
 • Minigrep CLI Program using Rust: Developed a basic CLI Program similar to ’grep’ using Rust programming language."""]
 
+# documents = resume_content(candidate_id)
 
 
 def get_name():
@@ -111,29 +114,43 @@ def get_name():
         count += 1
     return f"resume topic{count}.txt"
 
-def topic(resume):
-    tfidfres = compute_tfidf(documents)
+def topic(candidate_id):
+    resume = resume_content(candidate_id)
+    tfidfres = compute_tfidf(resume)
     tfidfres1 = get_top_tfidf(tfidfres, top_n=10)
 
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
-        model_name="openai/gpt-oss-20b",  
+        model_name="openai/gpt-oss-20b",
         temperature=0.7
     )
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", """You are an expert resume analyzer.
-Given a resume and TF-IDF keyword scores, extract the topics. Give more weight to technologies that are rare and new , also list these seperatly than the vast/umbrella topics.
-Return ONLY a valid JSON array like this, no explanation, no markdown:
+Given a resume and TF-IDF keyword scores, extract the topics.
+Give more weight to technologies that are rare and new, and list these separately than the vast/umbrella topics.
+Return ONLY a valid JSON array with no explanation, no markdown, no backticks:
 [
-  {{"topic": String, "importance": float}}
+  {{"topic": "string", "subtopic": "string", "difficulty": "easy|medium|hard"}}
 ]"""),
         ("human", "Resume:\n{resume} \n\nTF-IDF Scores:\n{tfidfsc}")
     ])
 
     chain = prompt | llm | StrOutputParser()
-
     raw = chain.invoke({"resume": resume, "tfidfsc": tfidfres1})
+    try:
+        topics = json.loads(raw)
+        for item in topics:
+            insert_resume_topic(
+                candidate_id=candidate_id,
+                topic=item["topic"],
+                subtopic=item["subtopic"],
+                difficulty=item["difficulty"]
+            )
+        print(f"Inserted {len(topics)} topics for candidate {candidate_id}")
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse LLM response: {e}")
+        print(f"Raw response: {raw}")
 
      
     raw = raw.strip()
@@ -143,19 +160,8 @@ Return ONLY a valid JSON array like this, no explanation, no markdown:
     try:
         result = json.loads(raw)
     except json.JSONDecodeError:
-        print("Could not parse JSON, saving raw output.")
-        result = raw
+        print("Could not parse JSON")
+        
 
-     
-    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Doc\resume_topics')
-    os.makedirs(output_dir, exist_ok=True)
-    filepath = os.path.join(output_dir, get_name())
 
-    with open(filepath, "w") as f:
-        if isinstance(result, str):
-            f.write(result)
-        else:
-            f.write(json.dumps(result, indent=2))
-
-    print(f"Saved to {filepath}")
     print(json.dumps(result, indent=2) if not isinstance(result, str) else result)

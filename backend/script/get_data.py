@@ -34,3 +34,21 @@ def resume_content(candidate_id):
     "education":       education,
     "projects":        projects
 }
+
+
+def get_question_id(candidate_id, question):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id FROM previous_questions
+        WHERE candidate_id = %s AND question = %s
+        ORDER BY asked_at DESC
+        LIMIT 1
+    """, (candidate_id, question))
+
+    row = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    return row[0] if row else None

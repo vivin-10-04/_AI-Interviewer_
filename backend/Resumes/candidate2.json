@@ -1,0 +1,203 @@
+{
+  "contactInformation": {
+    "name": "Neeraj Singh Sijwali",
+    "email": "neerajsijwali7842@gmail.com",
+    "phoneNumber": "9997231906",
+    "location": "Noida, India",
+    "city": "Noida",
+    "pinCode": null,
+    "dateOfBirth": null,
+    "gender": "MALE"
+  },
+  "personalDesc": "Passionate Full Stack Developer with practical experience in designing and developing scalable web applications using React, Node.js, Express.js, and MongoDB. Strong foundation in Data Structures, Algorithms, and Database Management Systems. Focused on building performant APIs, clean code, and efficient backend architectures while continuously exploring new technologies.",
+  "englishFluency": "ADVANCED",
+  "jobPreference": {
+    "expectedSalary": null,
+    "preferedShift": "ANY",
+    "jobType": "PERMANENT",
+    "salaryType": "MONTHLY",
+    "employmentType": "FULLTIME"
+  },
+  "preferedJobLocation": {
+    "primaryLocation": "Noida",
+    "secondaryLocation": null,
+    "otherPreferedLocation": []
+  },
+  "otherLocations": [
+    "Noida"
+  ],
+  "workExperience": [],
+  "educationalDetail": [
+    {
+      "collegeName": "Uttarakhand Open University",
+      "course": "BCA",
+      "qualification": "Graduation",
+      "specialization": null,
+      "courseType": "FULLTIME",
+      "startDate": "2018-01",
+      "endDate": "2021-12",
+      "currentlyPursuing": false
+    },
+    {
+      "collegeName": "GL Bajaj Institute of Technology and Management",
+      "course": "MCA",
+      "qualification": "Post Graduation",
+      "specialization": null,
+      "courseType": "FULLTIME",
+      "startDate": "2023-10",
+      "endDate": "2025-06",
+      "currentlyPursuing": false
+    }
+  ],
+  "skills": [
+    {
+      "skillName": "React.js",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Node.js",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Express.js",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "MongoDB",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "JavaScript",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "C++",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Java",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Python",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "HTML5",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "CSS3",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "REST API",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "MySQL",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Data Structures & Algorithms",
+      "skillType": "PRIMARY",
+      "rating": 5
+    },
+    {
+      "skillName": "Docker",
+      "skillType": "PRIMARY",
+      "rating": 5
+    }
+  ],
+  "certificateInfo": [
+    {
+      "certificationName": "HTML, CSS, SQL, JavaScript, Java",
+      "issuedBy": "HackerRank",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    },
+    {
+      "certificationName": "OCI Certified AI Foundations Associate",
+      "issuedBy": "Oracle",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    },
+    {
+      "certificationName": "AI classroom Series",
+      "issuedBy": "Microsoft",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    },
+    {
+      "certificationName": "Cybersecurity Certification",
+      "issuedBy": null,
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    }
+  ],
+  "achievement": [],
+  "project": [
+    {
+      "associated_with": null,
+      "client": null,
+      "currentlyWorking": true,
+      "empType": "FULLTIME",
+      "endDate": null,
+      "location": null,
+      "projectDescription": "Developed a full-stack web application to list, search, and manage property listings. Implemented JWT-based authentication for secure user and agent access. Integrated MongoDB for property management with advanced search and filtering. Built RESTful APIs using Express.js.",
+      "projectName": "Real Estate Property Listing Platform",
+      "projectSite": "ONSITE",
+      "projectUrl": null,
+      "role": "Full Stack Developer",
+      "roleDescription": null,
+      "startDate": null,
+      "workType": "WITHTEAM"
+    },
+    {
+      "associated_with": null,
+      "client": null,
+      "currentlyWorking": true,
+      "empType": "FULLTIME",
+      "endDate": null,
+      "location": null,
+      "projectDescription": "Developed a full-stack web application to list, search, and manage real estate properties. Integrated MongoDB database for property data management. Implemented secure JWT-based authentication. Deployed backend APIs using Express.js.",
+      "projectName": "E-commerce website",
+      "projectSite": "ONSITE",
+      "projectUrl": null,
+      "role": "Full Stack Developer",
+      "roleDescription": null,
+      "startDate": null,
+      "workType": "WITHTEAM"
+    }
+  ],
+  "areaOfInterest": [
+    "Full Stack Development",
+    "Web Development",
+    "Backend Architecture"
+  ],
+  "languages": [
+    "Hindi",
+    "English"
+  ],
+  "preferedJobRole": [
+    "Full Stack Developer",
+    "Backend Developer",
+    "Software Developer"
+  ]
+}

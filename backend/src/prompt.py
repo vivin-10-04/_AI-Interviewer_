@@ -2,10 +2,14 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 import json
-import os
 from dotenv import load_dotenv
+from speakai import text_to_speech
+import sys
 import os
-from .speakai import text_to_speech
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from script.get_data import resume_content
+from script.insert_response import insert_question
+from config.DB_config import get_connection , get_engine
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -51,34 +55,63 @@ def get_name():
     return f"prevq{count}.txt"
 
 
-def next_ques(inputtext, prevques):
-    topic = load_topics
+
+
+def get_previous_questions(candidate_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT question, topic, question_type
+        FROM previous_questions
+        WHERE candidate_id = %s
+        ORDER BY asked_at ASC
+    """, (candidate_id,))
+
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return [
+        {"question": row[0], "topic": row[1], "question_type": row[2]}
+        for row in rows
+    ]
+
+def generate_question(candidate_id, session_id, inputtext, topic):
+    prevques = get_previous_questions(candidate_id)
 
     llm = ChatGroq(
-        groq_api_key=GROQ_API_KEY, 
-        model_name="llama-3.3-70b-versatile",  
+        groq_api_key=GROQ_API_KEY,
+        model_name="llama-3.3-70b-versatile",
         temperature=0.7
     )
-    
-   
+
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "Curate a new question different taking the {prevques} in to consideration and evaluate understanding of various {topic}. If you have already asked about one topic according to prev questions then shift to another one .Respond ONLY in JSON format."),
-        ("human", "{inputtext}")
-    ])
-
+    ("system", """Curate a new question different taking the {prevques} into consideration and evaluate understanding of various {topic}. 
+If you have already asked about one topic according to prev questions then shift to another one. 
+Respond ONLY in this exact JSON format with no explanation:
+{{
+  "question": "string",
+  "topic": "string",
+  "question_type": "conceptual|practical|coding"
+}}"""),
+    ("human", "{inputtext}")
+])
     chain = prompt | llm | JsonOutputParser()
-
-   
     result = chain.invoke({"inputtext": inputtext, "prevques": prevques, "topic": topic})
-    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Doc\prevQues')
-    os.makedirs(output_dir, exist_ok=True)
-    filepath = os.path.join(output_dir,get_name())
 
-    with open(filepath, "w") as f:
-        if isinstance(result, str):
-            f.write(result)
-        else:
-            f.write(json.dumps(result, indent=2))
-    text_to_speech(json.dumps(result, indent=2))
+    try:
+        insert_question(
+            candidate_id=candidate_id,
+            session_id=session_id,
+            question=result["question"],       
+            topic=result["topic"],              
+            question_type=result["question_type"]   
+        )
+        text_to_speech(result["question"])
+    except KeyError as e:
+        print(f"LLM response missing field: {e}")
+        print(f"Raw result: {result}")
 
+    return result
 

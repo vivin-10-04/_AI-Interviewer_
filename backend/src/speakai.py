@@ -6,6 +6,9 @@ import wikipedia as wiki
 import webbrowser as wb
 import cv2
 import os
+import pygame
+import base64
+import tempfile
 from dotenv import load_dotenv
 from sarvamai import SarvamAI
 from audiotranscribe import transcribe_audio as tsa
@@ -31,7 +34,7 @@ def speech_to_text():
 
     return query
 
-def text_to_speech(text):
+def text_to_speech(text , filename ="test"):
     client = SarvamAI(api_subscription_key=SARVAM_API_KEY)
 
     response = client.text_to_speech.convert(
@@ -43,12 +46,29 @@ def text_to_speech(text):
         enable_preprocessing=True,
         model="bulbul:v3"
     )
+    audio_chunks = response.audios  # list of base64 strings
 
-    output_path = "response.wav"
+    # Decode and combine all chunks
+    audio_bytes = b"".join(base64.b64decode(chunk) for chunk in audio_chunks)
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_path = os.path.join(base_dir, "responses", filename)
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
     with open(output_path, "wb") as f:
-        f.write(response.audio_data)
+            f.write(audio_bytes)
 
-    os.system("start response.wav")
+        # Play directly from saved file — no temp file needed
+    pygame.mixer.init(frequency=22050)
+    pygame.mixer.music.load(output_path)
+    pygame.mixer.music.play()
+
+    while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+
+    pygame.mixer.quit()
+
 
 def greet():
     now = datetime.datetime.now()
@@ -69,3 +89,6 @@ def greet():
         "and lastly solve a coding question. "
         "So lets start with a short and brief introduction about yourself."
     )
+
+
+greet()

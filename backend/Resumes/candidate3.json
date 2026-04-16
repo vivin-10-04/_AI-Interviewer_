@@ -1,0 +1,209 @@
+{
+  "contactInformation": {
+    "name": "Vivin Sharma",
+    "email": "vivin.sharma45678@gmail.com",
+    "phoneNumber": "+91-999911111",
+    "location": "Noida, India",
+    "city": "Noida",
+    "pinCode": null,
+    "dateOfBirth": null,
+    "gender": "MALE"
+  },
+  "personalDesc": "I am a computer science student specializing in AI/ML with experience in mobile robotics and data analytics. I have a strong background in optimizing models using Knowledge Distillation and developing autonomous systems.",
+  "englishFluency": "ADVANCED",
+  "jobPreference": {
+    "expectedSalary": null,
+    "preferedShift": "ANY",
+    "jobType": "PERMANENT",
+    "salaryType": "MONTHLY",
+    "employmentType": "FULLTIME"
+  },
+  "preferedJobLocation": {
+    "primaryLocation": "Noida",
+    "secondaryLocation": "Gurugram",
+    "otherPreferedLocation": [
+      "Delhi NCR"
+    ]
+  },
+  "otherLocations": [
+    "Noida",
+    "Gurugram",
+    "Delhi NCR"
+  ],
+  "workExperience": [
+    {
+      "companyName": "Institute of Electrical and Electronics Engineers (IEEE) MUJ",
+      "jobTitle": "Head Of Technical Projects",
+      "industryType": "Technology",
+      "startDate": "2023-02-01",
+      "endDate": "2024-02-01",
+      "currentlyWorking": false,
+      "salaryType": "MONTHLY",
+      "empType": "FULLTIME",
+      "noticePeriod": null,
+      "location": "Jaipur",
+      "department": "Technical Projects",
+      "currentSalary": null,
+      "experience": 1.0,
+      "description": "Launched and led an outreach initiative, facilitating collaboration between project holders and students. Contributed to the development of multiple club websites and applications."
+    },
+    {
+      "companyName": "Ernst & Young Global Delivery Services",
+      "jobTitle": "Data Analytics Intern",
+      "industryType": "Consulting",
+      "startDate": "2024-07-22",
+      "endDate": "2024-09-20",
+      "currentlyWorking": false,
+      "salaryType": "MONTHLY",
+      "empType": "INTERNSHIP",
+      "noticePeriod": null,
+      "location": "Gurugram, India",
+      "department": "Data Analytics",
+      "currentSalary": null,
+      "experience": 0.2,
+      "description": "Collaborated with analytics team to create and validate structured test datasets for EY’s Green Token tool, improving data reliability by 100%."
+    },
+    {
+      "companyName": "Addverb",
+      "jobTitle": "Mobile Robotics Intern",
+      "industryType": "Robotics",
+      "startDate": "2025-06-01",
+      "endDate": "2025-08-01",
+      "currentlyWorking": false,
+      "salaryType": "MONTHLY",
+      "empType": "INTERNSHIP",
+      "noticePeriod": null,
+      "location": "Noida, India",
+      "department": "Engineering",
+      "currentSalary": null,
+      "experience": 0.2,
+      "description": "Optimized dataset by generating 500+ synthetic pallet images using Gen AI. Developed an optimized semantic segmentation model using Knowledge Distillation."
+    }
+  ],
+  "educationalDetail": [
+    {
+      "collegeName": "Manipal University Jaipur",
+      "course": "B.Tech",
+      "qualification": "Graduation",
+      "specialization": "Computer Science Engineering (Major in AI ML)",
+      "courseType": "FULLTIME",
+      "startDate": "2022-07",
+      "endDate": "2026-05",
+      "currentlyPursuing": true
+    }
+  ],
+  "skills": [
+    {
+      "skillName": "Python",
+      "skillType": "PRIMARY",
+      "rating": 9
+    },
+    {
+      "skillName": "Java",
+      "skillType": "PRIMARY",
+      "rating": 7
+    },
+    {
+      "skillName": "PyTorch",
+      "skillType": "PRIMARY",
+      "rating": 8
+    },
+    {
+      "skillName": "TensorFlow",
+      "skillType": "PRIMARY",
+      "rating": 8
+    },
+    {
+      "skillName": "Computer Vision",
+      "skillType": "PRIMARY",
+      "rating": 8
+    },
+    {
+      "skillName": "ROS Noetic",
+      "skillType": "PRIMARY",
+      "rating": 7
+    }
+  ],
+  "certificateInfo": [
+    {
+      "certificationName": "Computer Vision",
+      "issuedBy": "IBM",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    },
+    {
+      "certificationName": "Machine Learning",
+      "issuedBy": "Stanford",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    },
+    {
+      "certificationName": "Tensorflow",
+      "issuedBy": "DeepLearning.AI",
+      "issuedDate": null,
+      "expirationDate": null,
+      "certificate": null
+    }
+  ],
+  "achievement": [
+    {
+      "achievementName": "Student Excellence Award",
+      "achievementCategory": "Academic/Industry",
+      "achievementDescription": "Received for Industry Experience and Applied Learning",
+      "achievementLevel": "Expert",
+      "achievementOrganization": "Manipal University Jaipur",
+      "award": "Student Excellence Award",
+      "date": null,
+      "teamPreference": null,
+      "uploadPhoto": "No"
+    }
+  ],
+  "project": [
+    {
+      "associated_with": "Addverb",
+      "client": null,
+      "currentlyWorking": false,
+      "empType": "INTERNSHIP",
+      "endDate": "2025-08-01",
+      "location": "Noida",
+      "projectDescription": "Implemented a teacher-student model architecture to achieve performance with reduced model complexity by 84%.",
+      "projectName": "Model Optimizing using Knowledge Distillation and Model Pruning",
+      "projectSite": "ONSITE",
+      "projectUrl": null,
+      "role": "Robotics Intern",
+      "roleDescription": "Optimized student model accuracy by over 300% through knowledge transfer.",
+      "startDate": "2025-06-01",
+      "workType": "WITHTEAM"
+    },
+    {
+      "associated_with": null,
+      "client": null,
+      "currentlyWorking": false,
+      "empType": "FULLTIME",
+      "endDate": null,
+      "location": null,
+      "projectDescription": "Designed a model leveraging CSPDarkNet-53 to focus on efficiently routing emergency vehicles using Computer Vision and SDN.",
+      "projectName": "Smart Emergency Traffic Routing System Using AI and IoT",
+      "projectSite": "OFFSITE",
+      "projectUrl": null,
+      "role": "Developer",
+      "roleDescription": "Implemented Computer vision and SDN for dynamic routing.",
+      "startDate": null,
+      "workType": "WITHTEAM"
+    }
+  ],
+  "areaOfInterest": [
+    "Machine Learning",
+    "Mobile Robotics",
+    "Computer Vision",
+    "Model Optimization"
+  ],
+  "languages": null,
+  "preferedJobRole": [
+    "AI Engineer",
+    "Machine Learning Engineer",
+    "Robotics Engineer"
+  ]
+}

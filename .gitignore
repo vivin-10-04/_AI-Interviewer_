@@ -3,5 +3,6 @@ myenv/
 __pycache__/
 .env
 audioans/
+responses/
 *.pyc
 *.wav
