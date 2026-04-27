@@ -6,3 +6,4 @@ audioans/
 responses/
 *.pyc
 *.wav
+node_modules/
