@@ -76,8 +76,10 @@ def get_previous_questions(candidate_id):
         {"question": row[0], "topic": row[1], "question_type": row[2]}
         for row in rows
     ]
-
-def generate_question(candidate_id, session_id, inputtext, topic):
+from fastapi import FastAPI
+app = FastAPI()
+@app.get("/get-question")
+async def generate_question(candidate_id, session_id, inputtext, topic):
     prevques = get_previous_questions(candidate_id)
 
     llm = ChatGroq(

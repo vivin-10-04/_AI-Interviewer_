@@ -1,14 +1,19 @@
-import speech_recognition as sr # type: ignore
+import speech_recognition as sr
 from datetime import timedelta
 import os, sys
+from fastapi import FastAPI
 from pathlib import Path
+
+app = FastAPI()
+
 def getname():
     count = 0
     while os.path.exists(f"answer{count}.txt"):
         count += 1
     return f"answer{count}.txt"
 
-def transcribe_audio(audio_file):
+@app.post("/audio-transcribe")
+async def transcribe_audio(audio_file):
     recognizer = sr.Recognizer()
 
     with sr.AudioFile(audio_file) as source:

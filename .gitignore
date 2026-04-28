@@ -7,3 +7,5 @@ responses/
 *.pyc
 *.wav
 node_modules/
+resumes/
+responses/

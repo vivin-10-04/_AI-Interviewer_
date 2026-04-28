@@ -20,75 +20,145 @@ export default function ProcessSection() {
   ];
 
   return (
-    <section className="border-b border-[#d1d1d1] px-6 py-32" style={{borderWidth: '1px', marginTop: '80px'}}>
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16 max-w-2xl">
-          <p
-            className="mb-4 text-[#FF5733]"
+    <section 
+      style={{
+        position: 'relative',
+        background: '#f0eef8',
+        borderBottom: '1px solid #d1cde8',
+        padding: '100px 48px',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Background mesh grid to continue from Hero */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(140,120,200,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(140,120,200,0.08) 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto' }}>
+        
+        {/* Header Area */}
+        <div style={{ marginBottom: '64px', maxWidth: '600px' }}>
+          {/* Label pill matching Hero */}
+          <div
             style={{
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: '14px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255,87,51,0.1)',
+              border: '1px solid rgba(255,87,51,0.25)',
+              borderRadius: '999px',
+              padding: '6px 16px',
+              marginBottom: '24px',
             }}
           >
-            HOW IT WORKS
-          </p>
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#FF5733', flexShrink: 0 }} />
+            <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FF5733', fontFamily: 'JetBrains Mono, monospace' }}>
+              How It Works
+            </span>
+          </div>
+
+          {/* Editorial Heading */}
           <h2
-            className="text-[#2b2d31]"
             style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em'
+              fontSize: 'clamp(40px, 5vw, 56px)',
+              fontWeight: 900,
+              lineHeight: 1.1,
+              letterSpacing: '-0.03em',
+              color: '#1a1820',
+              fontFamily: '"Cabinet Grotesk", "Syne", Georgia, serif',
             }}
           >
-            Three Steps to Interview Mastery
+            Three Steps to<br/>
+            Interview Mastery
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Steps Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
           {steps.map((step, index) => (
             <div
               key={index}
-              className="border border-[#d1d1d1] bg-white p-8 transition-all hover:border-[#2b2d31]"
-              style={{borderWidth: '1px'}}
+              style={{
+                background: 'white',
+                border: '1.5px solid #c8c2dc',
+                borderRadius: '8px',
+                padding: '40px 32px',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                cursor: 'default',
+              }}
+              onMouseOver={e => {
+                (e.currentTarget as HTMLDivElement).style.transform = 'translate(-4px, -4px)';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = '8px 8px 0px rgba(140,120,200,0.15)';
+                (e.currentTarget as HTMLDivElement).style.borderColor = '#a39ac4';
+              }}
+              onMouseOut={e => {
+                (e.currentTarget as HTMLDivElement).style.transform = '';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+                (e.currentTarget as HTMLDivElement).style.borderColor = '#c8c2dc';
+              }}
             >
-              <div className="mb-6">
-                <div className="border border-[#2b2d31] w-16 h-16 flex items-center justify-center" style={{borderWidth: '2px'}}>
-                  <step.icon className="w-8 h-8 text-[#2b2d31]" />
-                </div>
+              {/* Icon Container */}
+              <div 
+                style={{ 
+                  width: '56px', 
+                  height: '56px', 
+                  borderRadius: '12px', 
+                  background: 'rgba(255,87,51,0.08)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  marginBottom: '32px'
+                }}
+              >
+                <step.icon size={28} color="#FF5733" />
               </div>
 
+              {/* Step Number */}
               <div
-                className="mb-3 text-[#2b2d31]"
                 style={{
                   fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '12px',
+                  fontWeight: 600,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
-                  color: '#6b6b6b'
+                  color: '#8a85a0',
+                  marginBottom: '12px'
                 }}
               >
-                STEP {String(index + 1).padStart(2, '0')}
+                Step {String(index + 1).padStart(2, '0')}
               </div>
 
+              {/* Step Title */}
               <h3
-                className="mb-4 text-[#2b2d31]"
                 style={{
-                  fontSize: '24px',
-                  fontWeight: 700,
-                  letterSpacing: '-0.01em'
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  letterSpacing: '-0.01em',
+                  color: '#1a1820',
+                  marginBottom: '16px',
+                  fontFamily: 'system-ui, sans-serif'
                 }}
               >
                 {step.title}
               </h3>
 
+              {/* Step Description */}
               <p
-                className="text-[#6b6b6b]"
                 style={{
                   fontSize: '16px',
-                  lineHeight: 1.6
+                  lineHeight: 1.6,
+                  color: '#5a5570',
+                  fontFamily: 'system-ui, sans-serif',
+                  margin: 0
                 }}
               >
                 {step.description}
@@ -96,6 +166,7 @@ export default function ProcessSection() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

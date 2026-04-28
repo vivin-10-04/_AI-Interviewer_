@@ -2,95 +2,136 @@ import { FileText, CheckCircle2 } from 'lucide-react';
 
 export default function TransformationSection() {
   return (
-    <section className="border-b border-[#d1d1d1] px-6 py-32 bg-[#f5f5f5]" style={{borderWidth: '1px', marginTop: '80px'}}>
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16 max-w-2xl">
-          <p
-            className="mb-4 text-[#FF5733]"
+    <section 
+      style={{
+        position: 'relative',
+        background: '#f0eef8',
+        borderBottom: '1px solid #d1cde8',
+        padding: '100px 48px',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Background mesh grid to continue the theme */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(140,120,200,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(140,120,200,0.08) 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto' }}>
+        
+        {/* Header Area */}
+        <div style={{ marginBottom: '64px', maxWidth: '600px' }}>
+          {/* Label pill matching Hero */}
+          <div
             style={{
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: '14px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255,87,51,0.1)',
+              border: '1px solid rgba(255,87,51,0.25)',
+              borderRadius: '999px',
+              padding: '6px 16px',
+              marginBottom: '24px',
             }}
           >
-            THE TRANSFORMATION
-          </p>
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#FF5733', flexShrink: 0 }} />
+            <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FF5733', fontFamily: 'JetBrains Mono, monospace' }}>
+              The Transformation
+            </span>
+          </div>
+
+          {/* Editorial Heading */}
           <h2
-            className="text-[#2b2d31]"
             style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em'
+              fontSize: 'clamp(40px, 5vw, 56px)',
+              fontWeight: 900,
+              lineHeight: 1.1,
+              letterSpacing: '-0.03em',
+              color: '#1a1820',
+              fontFamily: '"Cabinet Grotesk", "Syne", Georgia, serif',
             }}
           >
-            From Uncertainty to Confidence
+            From Uncertainty<br/>
+            to Confidence
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="border border-[#d1d1d1] bg-white p-8" style={{borderWidth: '1px'}}>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#2b2d31] flex items-center justify-center">
-                <span className="text-white" style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '14px'}}>?</span>
+        {/* 2-Column Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+          
+          {/* LEFT CARD — Before */}
+          <div 
+            style={{
+              background: 'white',
+              border: '1.5px solid #c8c2dc',
+              borderRadius: '8px',
+              padding: '48px 40px',
+            }}
+          >
+            <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ width: '40px', height: '40px', background: '#e0dceb', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '16px', fontWeight: 700, color: '#5a5570' }}>?</span>
               </div>
-              <h3
-                style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  letterSpacing: '-0.01em',
-                  color: '#2b2d31'
-                }}
-              >
+              <h3 style={{ fontSize: '24px', fontWeight: 800, letterSpacing: '-0.01em', color: '#1a1820', fontFamily: 'system-ui, sans-serif', margin: 0 }}>
                 Before: Raw Preparation
               </h3>
             </div>
 
-            <div className="space-y-6">
-              <div className="relative">
-                <div className="border border-[#d1d1d1] p-6 bg-white transform rotate-[-2deg]" style={{borderWidth: '1px'}}>
-                  <div className="flex items-start gap-3 mb-3">
-                    <FileText className="w-5 h-5 text-[#6b6b6b] flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="h-2 bg-[#d1d1d1] w-32 mb-2"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-full mb-1"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-5/6"></div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              
+              {/* Stacked Papers Illustration */}
+              <div style={{ position: 'relative', height: '140px' }}>
+                
+                {/* Back Paper */}
+                <div style={{ position: 'absolute', top: 0, left: '10px', right: '10px', border: '1px solid #d1cde8', background: '#fcfbfe', padding: '20px', borderRadius: '4px', transform: 'rotate(-3deg)' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <FileText size={20} color="#a39ac4" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <div style={{ width: '100%' }}>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '40%', marginBottom: '10px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '100%', marginBottom: '8px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '85%', borderRadius: '2px' }}></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Middle Paper */}
+                <div style={{ position: 'absolute', top: '15px', left: '5px', right: '15px', border: '1px solid #d1cde8', background: '#fdfcfe', padding: '20px', borderRadius: '4px', transform: 'rotate(2deg)' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <FileText size={20} color="#a39ac4" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <div style={{ width: '100%' }}>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '30%', marginBottom: '10px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '100%', marginBottom: '8px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '65%', borderRadius: '2px' }}></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Front Paper */}
+                <div style={{ position: 'absolute', top: '30px', left: '0', right: '0', border: '1px solid #c8c2dc', background: 'white', padding: '20px', borderRadius: '4px', transform: 'rotate(-1deg)', boxShadow: '0 4px 12px rgba(140,120,200,0.08)' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <FileText size={20} color="#7c5cbf" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <div style={{ width: '100%' }}>
+                      <div style={{ height: '6px', background: '#c8c2dc', width: '35%', marginBottom: '10px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '100%', marginBottom: '8px', borderRadius: '2px' }}></div>
+                      <div style={{ height: '6px', background: '#e0dceb', width: '50%', borderRadius: '2px' }}></div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative -mt-4">
-                <div className="border border-[#d1d1d1] p-6 bg-white transform rotate-[1deg]" style={{borderWidth: '1px'}}>
-                  <div className="flex items-start gap-3 mb-3">
-                    <FileText className="w-5 h-5 text-[#6b6b6b] flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="h-2 bg-[#d1d1d1] w-24 mb-2"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-full mb-1"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-4/6"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative -mt-4">
-                <div className="border border-[#d1d1d1] p-6 bg-white transform rotate-[-1deg]" style={{borderWidth: '1px'}}>
-                  <div className="flex items-start gap-3 mb-3">
-                    <FileText className="w-5 h-5 text-[#6b6b6b] flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="h-2 bg-[#d1d1d1] w-28 mb-2"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-full mb-1"></div>
-                      <div className="h-2 bg-[#d1d1d1] w-3/6"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <ul className="space-y-3 pt-4">
+              {/* Negative Points */}
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {['No structured feedback', 'Generic practice questions', 'Uncertain weak points'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-[#6b6b6b]" style={{fontSize: '14px'}}>
-                    <div className="w-1.5 h-1.5 bg-[#6b6b6b]"></div>
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#5a5570', fontSize: '15px', fontFamily: 'system-ui, sans-serif' }}>
+                    <div style={{ width: '6px', height: '6px', background: '#a39ac4', borderRadius: '50%' }}></div>
                     {item}
                   </li>
                 ))}
@@ -98,80 +139,75 @@ export default function TransformationSection() {
             </div>
           </div>
 
-          <div className="border border-[#2b2d31] bg-white p-8" style={{borderWidth: '2px'}}>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#FF5733] flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-white" />
+          {/* RIGHT CARD — After */}
+          <div 
+            style={{
+              background: 'white',
+              border: '2px solid #FF5733', // Highlight border for the "After" state
+              borderRadius: '8px',
+              padding: '48px 40px',
+              position: 'relative',
+              boxShadow: '8px 8px 0px rgba(255,87,51,0.15)',
+            }}
+          >
+            <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ width: '40px', height: '40px', background: '#FF5733', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CheckCircle2 size={20} color="white" />
               </div>
-              <h3
-                style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  letterSpacing: '-0.01em',
-                  color: '#2b2d31'
-                }}
-              >
+              <h3 style={{ fontSize: '24px', fontWeight: 800, letterSpacing: '-0.01em', color: '#1a1820', fontFamily: 'system-ui, sans-serif', margin: 0 }}>
                 After: Structured Report
               </h3>
             </div>
 
-            <div className="border border-[#d1d1d1] p-6 mb-6" style={{borderWidth: '1px'}}>
-              <div className="mb-4 pb-3 border-b border-[#d1d1d1]" style={{borderWidth: '1px'}}>
-                <h4 style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#6b6b6b', marginBottom: '8px'}}>
-                  PERFORMANCE SCORE
+            {/* Inner Dashboard Mockup */}
+            <div style={{ border: '1.5px solid #e0dceb', borderRadius: '6px', padding: '24px', marginBottom: '32px', background: '#fcfbfe' }}>
+              
+              {/* Score Area */}
+              <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1.5px solid #e0dceb' }}>
+                <h4 style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8a85a0', margin: '0 0 8px 0' }}>
+                  Performance Score
                 </h4>
-                <div className="flex items-end gap-2">
-                  <span style={{fontSize: '48px', fontWeight: 800, color: '#FF5733', lineHeight: 1}}>87</span>
-                  <span style={{fontSize: '24px', color: '#6b6b6b', marginBottom: '4px'}}>/100</span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                  <span style={{ fontSize: '48px', fontWeight: 900, color: '#FF5733', lineHeight: 1, fontFamily: 'system-ui, sans-serif' }}>87</span>
+                  <span style={{ fontSize: '20px', fontWeight: 600, color: '#8a85a0', fontFamily: 'system-ui, sans-serif' }}>/100</span>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px'}}>Data Structures</span>
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#FF5733'}}>92%</span>
+              {/* Progress Bars */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  { label: 'Data Structures', score: '92%', color: '#FF5733', width: '92%' },
+                  { label: 'Algorithms', score: '85%', color: '#7c5cbf', width: '85%' },
+                  { label: 'System Design', score: '78%', color: '#a39ac4', width: '78%' }
+                ].map((stat, i) => (
+                  <div key={i}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', fontWeight: 600, color: '#1a1820' }}>{stat.label}</span>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', fontWeight: 700, color: stat.color }}>{stat.score}</span>
+                    </div>
+                    <div style={{ height: '8px', background: '#e0dceb', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', background: stat.color, width: stat.width, borderRadius: '4px' }}></div>
+                    </div>
                   </div>
-                  <div className="h-2 bg-[#f5f5f5] w-full">
-                    <div className="h-2 bg-[#FF5733]" style={{width: '92%'}}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px'}}>Algorithms</span>
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#2b2d31'}}>85%</span>
-                  </div>
-                  <div className="h-2 bg-[#f5f5f5] w-full">
-                    <div className="h-2 bg-[#2b2d31]" style={{width: '85%'}}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px'}}>System Design</span>
-                    <span style={{fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#6b6b6b'}}>78%</span>
-                  </div>
-                  <div className="h-2 bg-[#f5f5f5] w-full">
-                    <div className="h-2 bg-[#6b6b6b]" style={{width: '78%'}}></div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            <ul className="space-y-3">
+            {/* Positive Points */}
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
                 'Detailed performance metrics',
                 'Personalized improvement plan',
                 'Question-by-question breakdown'
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-[#2b2d31]" style={{fontSize: '14px', fontWeight: 500}}>
-                  <CheckCircle2 className="w-5 h-5 text-[#FF5733] flex-shrink-0" />
+                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#1a1820', fontSize: '15px', fontWeight: 600, fontFamily: 'system-ui, sans-serif' }}>
+                  <CheckCircle2 size={18} color="#FF5733" style={{ flexShrink: 0 }} />
                   {item}
                 </li>
               ))}
             </ul>
           </div>
+
         </div>
       </div>
     </section>

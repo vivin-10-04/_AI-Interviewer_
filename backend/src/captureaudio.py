@@ -47,24 +47,26 @@ def stop_recording(SAMPLE_RATE):
     else:
         print("No audio recorded.")
 
-def cam():
-    vid = cv2.VideoCapture(0)
-    if not vid.isOpened():
-        print("Error: Could not open camera")
-        return
+# def cam():
+#     vid = cv2.VideoCapture(0)
+#     if not vid.isOpened():
+#         print("Error: Could not open camera")
+#         return
 
-    while not stop_cam.is_set():
-        ret, frame = vid.read()
-        if not ret:
-            print("Error: Failed to capture frame")
-            break
-        cv2.imshow('Camera', frame)
-        cv2.waitKey(1)
+#     while not stop_cam.is_set():
+#         ret, frame = vid.read()
+#         if not ret:
+#             print("Error: Failed to capture frame")
+#             break
+#         cv2.imshow('Camera', frame)
+#         cv2.waitKey(1)
 
-    vid.release()
-    cv2.destroyAllWindows()
-
-def capture_audio():
+#     vid.release()
+#     cv2.destroyAllWindows()
+from fastapi import FastAPI
+app = FastAPI()
+@app.post("/audio-capture")
+async def capture_audio():
     global recording  # added
     SAMPLE_RATE = 44100
     CHANNELS = 1

@@ -11,9 +11,10 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 from script.get_data import get_previous_questions, get_question_id
 from script.insert_response import insert_score, insert_answer
-
-
-def evalandscore(candidate_id, session_id, question, answer, evalcriteria):
+from fastapi import FastAPI
+app = FastAPI()
+@app.post("/eval-score")
+async def evalandscore(candidate_id, session_id, question, answer, evalcriteria):
     
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
