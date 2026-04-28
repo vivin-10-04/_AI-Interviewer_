@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Upload, FileText, MessageSquare, BarChart3 } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import Hero from './components/Hero';
 import ProcessSection from './components/ProcessSection';
 import TransformationSection from './components/TransformationSection';
-
+import InterviewModal from './components/interviewmodal';
 
 export default function App() {
   const [uploadedResume, setUploadedResume] = useState<File | null>(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showInterview, setShowInterview] = useState(false);   // ← new
 
   const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -17,7 +18,7 @@ export default function App() {
 
   const handleStartInterview = () => {
     if (uploadedResume) {
-      alert(`Starting interview with resume: ${uploadedResume.name}`);
+      setShowInterview(true);   // ← open interview modal directly
     } else {
       setShowUploadModal(true);
     }
@@ -32,9 +33,15 @@ export default function App() {
       />
       <ProcessSection />
       <TransformationSection />
-      
-      
 
+      {/* Interview Modal */}
+      <InterviewModal
+        isOpen={showInterview}
+        onClose={() => setShowInterview(false)}
+        resume={uploadedResume}
+      />
+
+      {/* Upload Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white border border-[#d1d1d1] p-12 max-w-md w-full mx-4" style={{borderWidth: '1px'}}>
@@ -67,9 +74,7 @@ export default function App() {
               <button
                 onClick={() => {
                   setShowUploadModal(false);
-                  if (uploadedResume) {
-                    handleStartInterview();
-                  }
+                  if (uploadedResume) setShowInterview(true);  // ← open interview after upload
                 }}
                 disabled={!uploadedResume}
                 className="flex-1 bg-[#FF5733] text-white px-6 py-4 transition-all hover:bg-[#e64d2b] disabled:opacity-50 disabled:cursor-not-allowed"
