@@ -52,3 +52,20 @@ def get_question_id(candidate_id, question):
     conn.close()
 
     return row[0] if row else None
+
+def load_answer(candidate_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT answer_text FROM public.answers
+        WHERE candidate_id = %s
+        ORDER BY answered_at DESC
+        LIMIT 1
+    """, (candidate_id))
+
+    ans = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return ans

@@ -13,6 +13,6 @@ async def parse_doc(self, file: bytes) -> str:
             paragraph.text for paragraph in doc.paragraphs
         )
         json_dict = gemini_process(content=data)
-        insert_candidate(json_dict)
+        return insert_candidate(json_dict)
     except Exception as error:
         raise RuntimeError(f"Error parsing Doc: {error}")

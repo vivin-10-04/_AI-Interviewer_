@@ -7,57 +7,14 @@ from speakai import text_to_speech
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from script.get_data import resume_content
+from script.get_data import resume_content , laod_answer , load_topics
 from script.insert_response import insert_question
 from config.DB_config import get_connection , get_engine
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-def load_answer():
-    filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Doc', 'answer.txt')
-    
-    if not os.path.exists(filepath):
-        print("No topic file found. Run audiotranscribe.py first.")
-        return None
-    
-    with open(filepath, "r") as f:
-        content = f.read()
-    
-    try:
-        text = json.loads(content)
-    except json.JSONDecodeError:
-        text = content   
-    
-    return text
-
-def load_topics():
-    filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Doc', 'resume topic.txt')
-    
-    if not os.path.exists(filepath):
-        print("No topic file found. Run resumetopicextractions.py first.")
-        return None
-    
-    with open(filepath, "r") as f:
-        content = f.read()
-    
-    try:
-        topics = json.loads(content)
-    except json.JSONDecodeError:
-        topics = content   
-    
-    return topics
-
-def get_name():
-    count = 0
-    while os.path.exists(f"prevq{count}.txt"):
-        count += 1
-    return f"prevq{count}.txt"
-
-
-
-
-def get_previous_questions(candidate_id):
+def get_available_topics(candidate_id):
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -66,21 +23,39 @@ def get_previous_questions(candidate_id):
         FROM previous_questions
         WHERE candidate_id = %s
         ORDER BY asked_at ASC
-    """, (candidate_id,))
+    """, (candidate_id,)) 
 
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
 
-    return [
+    all_topics = load_topics(candidate_id)
+    
+    # Get set of previously asked topics
+    asked_topics = {row[1] for row in rows}
+    
+    # Filter out asked topics
+    available_topics = [
+        topic for topic in all_topics 
+        if topic[0] not in asked_topics  # topic[0] is the topic name
+    ]
+    
+    # Format previous questions
+    previous_questions = [
         {"question": row[0], "topic": row[1], "question_type": row[2]}
         for row in rows
     ]
+    
+    return {
+        "previous_questions": previous_questions,
+        "available_topics": available_topics
+    }
+
 from fastapi import FastAPI
 app = FastAPI()
 @app.get("/get-question")
 async def generate_question(candidate_id, session_id, inputtext, topic):
-    prevques = get_previous_questions(candidate_id)
+    new_topics = get_available_topics(candidate_id)
 
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
@@ -89,8 +64,8 @@ async def generate_question(candidate_id, session_id, inputtext, topic):
     )
 
     prompt = ChatPromptTemplate.from_messages([
-    ("system", """Curate a new question different taking the {prevques} into consideration and evaluate understanding of various {topic}. 
-If you have already asked about one topic according to prev questions then shift to another one. 
+    ("system", """Curate a new question different taking the {new_topics} into consideration and evaluate understanding of these various topics. 
+     Create questions in a higher level difficulty and not general basic questions focus more on niche subtopics. 
 Respond ONLY in this exact JSON format with no explanation:
 {{
   "question": "string",

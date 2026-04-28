@@ -65,8 +65,8 @@ def stop_recording(SAMPLE_RATE):
 #     cv2.destroyAllWindows()
 from fastapi import FastAPI
 app = FastAPI()
-@app.post("/audio-capture")
-async def capture_audio():
+
+def capture_audio():
     global recording  # added
     SAMPLE_RATE = 44100
     CHANNELS = 1

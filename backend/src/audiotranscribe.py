@@ -42,6 +42,6 @@ async def transcribe_audio(audio_file):
         print(f"\n  Total Duration: {h:02d}:{m:02d}:{s:02d}")
 
     except sr.UnknownValueError:
-        print("  Could not understand audio.")
+        return("  Could not understand audio.")
     except sr.RequestError as e:
-        print(f"  Google API error: {e}")
+        return(f"  Google API error: {e}")

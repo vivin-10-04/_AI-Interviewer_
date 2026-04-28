@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
-
+import { interviewService, type InterviewMessage } from '../services/interviewService';
 interface Message {
   role: "user" | "assistant";
   text: string;
@@ -127,41 +127,56 @@ export default function InterviewModal({ isOpen, onClose, resume }: Props) {
   };
 
   const submitAnswer = async () => {
-    if (!mediaRecorderRef.current) return;
-    mediaRecorderRef.current.onstop = async () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-      setLoading(true);
-      try {
-        const formData = new FormData();
-        formData.append("audio", audioBlob, "answer.webm");
-        formData.append("history", JSON.stringify(messages));
-        if (resume) formData.append("resume", resume);
+  if (!mediaRecorderRef.current) return;
+  
+  mediaRecorderRef.current.onstop = async () => {
+    const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+    setLoading(true);
+    
+    try {
+      // Call the backend API
+      const data = await interviewService.sendInterviewAnswer(
+        audioBlob,
+        messages,
+        resume
+      );
 
-        const response = await fetch("http://localhost:8000/interview", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await response.json();
+      // Update messages
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", text: data.transcript },
+        { role: "assistant", text: data.reply },
+      ]);
 
-        setMessages((prev) => [
-          ...prev,
-          { role: "user", text: data.transcript },
-          { role: "assistant", text: data.reply },
-        ]);
-
-        const utterance = new SpeechSynthesisUtterance(data.reply);
-        utterance.lang = "en-US";
-        utterance.onstart = () => setIsSpeaking(true);
-        utterance.onend = () => setIsSpeaking(false);
-        window.speechSynthesis.speak(utterance);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    stopListening();
+      // Text-to-speech
+      const utterance = new SpeechSynthesisUtterance(data.reply);
+      utterance.lang = "en-US";
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+      
+    } catch (err) {
+      console.error('Interview error:', err);
+      
+      // Show error message to user
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : 'Sorry, I encountered an error. Please try again.';
+      
+      setMessages((prev) => [
+        ...prev,
+        { 
+          role: "assistant", 
+          text: errorMessage
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
+  
+  stopListening();
+};
 
   if (!isOpen) return null;
 

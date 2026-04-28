@@ -104,6 +104,7 @@ def insert_candidate(data):
             cursor.execute("INSERT INTO languages (candidate_id, language) VALUES (%s, %s)", (candidate_id, lang))
 
     conn.commit()
-    print(f"Candidate '{contact['name']}' inserted successfully with id {candidate_id}!")
     cursor.close()
     conn.close()
+    return candidate_id
+    
