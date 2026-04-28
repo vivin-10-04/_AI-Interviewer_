@@ -1,0 +1,273 @@
+Given the extracted text from a PDF resume, structure the information into a well-organized JSON format. The JSON should include key sections and fields commonly found in resumes, such as:
+
+
+
+Contact Information: Name, email, phone number, location, city, pin code, date of birth, gender.
+
+Personal Bio/ Description: A brief description of the applicant's background, interests, and career objectives.
+
+Years of Experience: this should be calculated based on the dates given in workExperience add the years. if date is mentioned as '2023 - present' then calculate the years from 2023 till current year.
+
+expectedSalary : Expected salary of the applicant. null if not available.
+
+Prefered Location: Check for list of city locations given in the text. if not found, use the location field from contactInformation.
+
+Professional Summary: A brief overview of the applicant's skills, experience, and career goals.
+
+Work Experience: A list of previous employment positions, including company names, job titles, dates of employment, and key responsibilities. always list the work experience from oldest to latest as per the dates provided.
+
+Education: A list of educational qualifications, including institutions attended, degrees obtained, and relevant coursework. always list the educational details from oldest to newest as per the dates provided.
+
+Skills: A list of technical and soft skills relevant to the applicant's field.
+
+Certifications: A list of professional certifications, including certification names, issuing organizations, issue dates, expiration dates, and links to certificates. keep this as null if not found.
+
+Area of Interest: A list of the applicant's areas of interest or expertise.
+
+Languages: A list of languages spoken by the applicant. keep as null if not found.
+
+Prefered Job Role: A list of preferred job roles or positions sought by the applicant. keep null if not found
+
+for any field with date, it should be in 'yyyy-mm-dd' or 'yyyy-mm' format only. in any case you should default to 1st day of year in case if month and date is missing, and default to 1st day of month in case if date is not mentioned. maintain this for all date fields without fail.
+
+Ensure the JSON is properly formatted, with clear and consistent naming conventions for the fields and sections. The JSON should be optimized for easy readability and machine processing."
+
+For any field which is not available in the text, keep it as null in the JSON.
+
+The JSON Structure should remain same as the example JSON Structure strictly. No extra fields or no extra nested JSONs should be added.
+
+
+
+also keep in consideration the comments mentioned in the JSON structure.
+
+
+
+Example JSON Structure: 
+
+
+
+{
+
+  "contactInformation": {
+
+    "name": "John Doe",
+
+    "email": "johndoe@example.com",
+
+    "phoneNumber": "+91 958475894",
+
+    "location": "New Delhi, India",
+
+    "city": "New Delhi",
+
+    "pinCode": "{check and find based on the address provided in text}",
+
+    "dateOfBirth": "1993-08-12", #this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned
+
+    "gender": "MALE", # other values can be "FEMALE" or "DONTWANTTODISCLOSE" or "MALE" only and nothing else. The value should always be converted into All Capitals.
+
+  },
+
+  "personalDesc":"I am a passionate software developer...",
+
+  "englishFluency": "ADVANCED", # other values can be "INTERMEDIATE" or "BASIC". put as "BASIC" if not found.
+
+  "jobPreference": {
+
+    "expectedSalary": 120000,
+
+    "preferedShift": "DAY", # other values can be "NIGHT" or "ANY". put as "ANY" if not found.
+
+    "jobType": "PERMANENT", # other values can be "TEMPORARY" or "OTHER". put as "PERMANENT" if not found. this is the prefered Job Type
+
+    "salaryType": "MONTHLY", # other values can be "YEARLY". put as "MONTHLY" if not found. this is the prefered Salary Type.
+
+    "employmentType": "FULLTIME", # other values can be "PARTTIME" or "CONTRACT" or "INTERNSHIP". put as "FULLTIME" if not found. This is the prefered Employment Type.
+
+  },
+
+  "preferedJobLocation": {
+
+    "primaryLocation": "New Delhi", # null if not found. This is a prefered location of the candidate
+
+    "secondaryLocation": "Noida", # null if not found. This is a prefered location of the candidate
+
+    "otherPreferedLocation": ["Gurgaon", "Bangalore], # null if not found.  This is a prefered location of the candidate. this should be an array of strings of cities.
+
+  },
+
+  "otherLocations": ["New Delhi", "Noida", "Gurgaon"], # add the cities from primaryLocation, secondaryLocation, otherPreferedLocation to this list, if the previous three are null then add the candidate's contact information city to this list. this should not be empty.
+
+  "workExperience": [
+
+    {
+
+      "companyName": "Acme Corporation",
+
+      "jobTitle": "Senior Software Engineer",
+
+      "industryType": "Technology",
+
+      "startDate": "2016-08-16", # this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned.
+
+      "endDate": "2020-08-16", # put null if currentlyWorking is true else put the same as startDate. this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned
+
+      "currentlyWorking": false, # should be true if endDate of workExperience is null. should be false only if endDate is mentioned.
+
+      "salaryType": "MONTHLY", # other values can be "YEARLY". put as "MONTHLY" if not found.
+
+      "empType": "FULLTIME", # other values can be "PARTTIME" or "CONTRACT" or "INTERNSHIP". put as "FULLTIME" if not found.
+
+      "noticePeriod": 30,
+
+      "location": "New Delhi, India",
+
+      "department": "Engineering", # null if not found
+
+      "currentSalary": 100000, # should be null if not found.
+
+      "currentlyWorking": true, # if end date is not mentioned, then put as true. otherwise false.
+
+      "experience": 3, # should be calculated based on the dates given in workExperience add the years. if date is mentioned as '2023 - present' then calculate the years from 2023 till current year. calculate till 1 decimal point. like 3.3 years or 0.2 years.
+
+      "description": "Develop and maintain high-performance ...",
+
+    },
+
+  ],
+
+  "educationalDetail": [
+
+    {
+
+      "collegeName": "Delhi University",
+
+      "course": "B.Ed", # put only the standard education degree abbreviation for the name of the course provided.
+
+      "qualification": "Post Graduation", # other values can be 10th, 12th, Graduation, Diploma. put null if not found.
+
+      "specialization": "Artificial Intelligence", # put as null if not found
+
+      "courseType": "FULLTIME", # this should be one of "PARTTIME", "FULLTIME", "DISTANT". if not found then put FULLTIME as default value.
+
+      "startDate": "2016-08", # this should be in 'yyyy-mm' format only. default to 1st month of year if month and date is missing.
+
+      "endDate": "2018-05", # should be null if dates is mentioned as '2023-05 - present'. otherwise put the end date. this should be in 'yyyy-mm' format only. default to 1st month of year if month and date is missing.
+
+      "currentlyPursuing": false, # should be true if end date is not mentioned. otherwise false.
+
+    },
+
+  ],
+
+  "skills": [
+
+    {
+
+      "skillName": "Java",
+
+      "skillType": "PRIMARY", # other values can be "OTHER". put "PRIMARY" if no provided.
+
+      "rating": 7, # standardise for out of 10. put 5 by default if not found.
+
+    },
+
+    {
+
+      "skillName": "Python",
+
+      "skillType": "PRIMARY", # other values can be "OTHER". put "PRIMARY" if no provided.
+
+      "rating": 7, # standardise for out of 10. put 5 by default if not found.
+
+    },
+
+  ],
+
+  "certificateInfo": [
+
+    {
+
+        "certificationName": "AWS Certified Solutions Architect",
+
+        "issuedBy": "Amazon Web Services",
+
+        "issuedDate": "2019-01-01", # this should be in 'yyyy-mm-dd' format only. null if not found. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned
+
+        "expirationDate": "2022-01-01", # this should be in 'yyyy-mm-dd' format only. null if not found. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned
+
+        "certificate": "{replace with URL to the certificate}"
+
+    },
+
+  ],
+
+  "achievement": [
+
+    {
+
+        "achievementName": "Hack In India Hackathon Runner Up", # null if not found
+
+        "achievementCategory": "Technology", # null if not found
+
+        "achievementDescription": "Recieved for excellent participation in hackathon", # null if not found.
+
+        "achievementLevel": "Expert", # null if not found
+
+        "achievementOrganization": "Hack In India", # null if not found
+
+        "award": "Runner Up", # null if not found
+
+        "date": "20202-02-05", # null if not found. this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned.
+
+        "teamPreference": "WITHTEAM", # other value can be "INDIVIDUALLY". put null if not found.
+
+        "uploadPhoto": "No", # put null if not found
+
+    },
+
+  ],
+
+  "project": [
+
+    {
+
+        "associated_with": "Winter Technologies", # null if not found
+
+        "client": "Solstice Infotech", # null if not found
+
+        "currentlyWorking": true, # should be true if end date is not mentioned. otherwise false.
+
+        "empType": "FULLTIME", # other values can be "PARTTIME" or "CONTRACT" or "INTERNSHIP". put as "FULLTIME" if not found. this is the employment type.
+
+        "endDate": "2018-05-20", # should be null if dates is mentioned as '2023 - present'. otherwise put the end date. this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned.
+
+        "location": "Kolkata", # null if not found
+
+        "projectDescription": "Worked on the backend API development ...", # null if not found.
+
+        "projectName": "Summer App", # null if not found.
+
+        "projectSite": "ONSITE", #other values can be "OFFSITE", "HYBRID". put as "ONSITE" if not found
+
+        "projectUrl": "URL of the project", # put null if not found
+
+        "role": "Backend Developer", # put null if not found
+
+        "roleDescription": "Worked on the project as a backend developer", # put null if not found.
+
+        "startDate": "2018-01-20", # put null if not found. this should be in 'yyyy-mm-dd' format only. default to 1st day of year if month and date is missing, default to 1st day of month if date is not mentioned.
+
+        "workType": "WITHTEAM", # other value can be "INDIVIDUALLY". put "WITHTEAM" if not found.
+
+    },
+
+  ],
+
+  "areaOfInterest": ["Machine Learning", "Web Development"], # this should always just be array of strings. put empty array if not found.
+
+  "languages": ["English", "Spanish"], # this should always just be array of strings with just the proper spoken and written languages by the candidate. put null if no spoken or written languages found.
+
+  "preferedJobRole": ["Software Developer", "Data Scientist"], # this should always just be array of strings. put empty array if not found.
+
+}
