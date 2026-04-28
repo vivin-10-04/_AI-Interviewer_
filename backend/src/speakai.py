@@ -6,7 +6,6 @@ import wikipedia as wiki
 import webbrowser as wb
 import cv2
 import os
-import pygame
 import base64
 import tempfile
 from dotenv import load_dotenv
@@ -33,8 +32,10 @@ def speech_to_text():
         return "None"
 
     return query
-
-def text_to_speech(text , filename ="test"):
+from fastapi import FastAPI
+app = FastAPI()
+@app.post("/speak")
+async def text_to_speech(text , filename ="test"):
     client = SarvamAI(api_subscription_key=SARVAM_API_KEY)
 
     response = client.text_to_speech.convert(
@@ -60,17 +61,17 @@ def text_to_speech(text , filename ="test"):
             f.write(audio_bytes)
 
         # Play directly from saved file — no temp file needed
-    pygame.mixer.init(frequency=22050)
-    pygame.mixer.music.load(output_path)
-    pygame.mixer.music.play()
+    # pygame.mixer.init(frequency=22050)
+    # pygame.mixer.music.load(output_path)
+    # pygame.mixer.music.play()
 
-    while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
+    # while pygame.mixer.music.get_busy():
+    #         pygame.time.Clock().tick(10)
 
-    pygame.mixer.quit()
+    # pygame.mixer.quit()
 
-
-def greet():
+@app.get("/greetings")
+async def greet():
     now = datetime.datetime.now()
     hour = now.hour
 
